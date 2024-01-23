@@ -20,5 +20,5 @@ $env:Path =  $env:Path + 'C:\Program Files\dotnet\;'
 Write-Host $env:Path 
 Write-Host "Hello from docker! Today is $(Get-Date)"
 CD  "c:/workspace"
-dotnet build
-
+dotnet publish
+dotnet run

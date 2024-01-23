@@ -1,5 +1,12 @@
 Dockerfile
 **/bin/
 **/obj/
-**/packages/
-**/.vs/
+**/out/
+
+# files
+Dockerfile*
+**/*.trx
+**/*.md
+**/*.ps1
+**/*.cmd
+**/*.sh

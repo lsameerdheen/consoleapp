@@ -1,0 +1,45 @@
+# Sample Dockerfile
+
+# Indicates that the windowsservercore image will be used as the base image.
+#FROM  mcr.microsoft.com/dotnet/framework/runtime:4.8.1 as baseimage
+FROM  mcr.microsoft.com/dotnet/framework/sdk
+
+# Metadata indicating an image maintainer.
+LABEL maintainer="ameerdeen@gmail.com"
+
+# clean up iis server web root
+#RUN powershell remove-item C:\inetpub\wwwroot\iisstart.*
+
+RUN mkdir "c:/workspace"
+WORKDIR "c:/workspace"
+COPY . "c:\workspace"
+COPY . "c:/workspace"
+EXPOSE 5555
+RUN dotnet clean
+RUN dotnet build -c release
+RUN dotnet publish -c release
+WORKDIR "D:\workspace\ameersoftware\bin\Release\net8.0 "
+ENTRYPOINT ["dotnet", "run"]
+
+#SHELL ["cmd", "/S", "/C"]
+#SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'Continue'; $verbosePreference='Continue';"]
+#RUN powershell -ExecutionPolicy Bypass -File "c:/workspace/Start.ps1" 
+#ENV ChocolateyUseWindowsCompression="false"
+#RUN Echo $env:ChocolateyUseWindowsCompression
+#RUN powershell -NoProfile -ExecutionPolicy Bypass -File "c:/workspace/chocolatey_install.ps1" 
+#RUN powershell -ExecutionPolicy Bypass 
+# SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
+#RUN powershell dism.exe /online /enable-feature /all /featurename:iis-webserver /NoRestart
+#RUN powershell choco feature enable -n=allowGlobalConfirmation
+#RUN powershell choco install  -y --ignore-package-exit-codes=3010 dotnet-sdk  
+#ENV Path = $env:Path + "C:\Program Files\dotnet\;"
+#RUN powershell Echo $env:Path 
+#RUN powershell Write-Host "Hello from docker! Today is $(Get-Date)"
+#RUN powershell -Command "CD  'c:/workspace'"
+#RUN powershell choco install nuget.commandline --allow-empty-checksums -y
+#RUN powershell choco install microsoft-build-tools 
+#RUN powershell dotnet publish
+#RUN powershell dotnet run
+# Sets a command or process that will run each time a container is run from the new image.
+#CMD [ "dotnet" , "run"] 
+
